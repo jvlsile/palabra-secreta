@@ -1,6 +1,6 @@
 /* Palabra Secreta · service worker
    Cambia VERSION cada vez que subas cambios para que las pizarras descarguen la versión nueva. */
-const VERSION = 'palabra-secreta-v1';
+const VERSION = 'palabra-secreta-v2';
 const FILES = [
   './',
   './index.html',

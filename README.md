@@ -19,6 +19,13 @@ Abre la dirección anterior en Chrome o Edge en el ordenador de la pizarra. Apar
 
 Cuando subas cambios, abre `sw.js` y cambia el número de `VERSION` (por ejemplo, de `v1` a `v2`). Así las pizarras que ya la tienen instalada descargan la versión nueva la próxima vez que se abra con conexión.
 
+## Sonido y música
+
+- El botón del altavoz activa o silencia los efectos de sonido (aciertos, fallos, celebraciones).
+- El botón de la nota musical activa la música de fondo: un tema alegre en la portada y el mapa, y un tema de detective durante los casos. Está apagada al empezar y el juego recuerda la elección en cada pizarra.
+- La música baja de volumen sola mientras se lee una pista en voz alta y cuando se celebra un caso resuelto.
+- Toda la música y los sonidos se generan en el propio juego: son originales y funcionan sin conexión.
+
 ## Archivos
 
 | Archivo | Para qué sirve |

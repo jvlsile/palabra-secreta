@@ -71,17 +71,65 @@ h1,h2,h3,p{margin:0}
 .lupi .eh,.lupi .bs{display:none}
 .lupi.happy .eo{display:none}.lupi.happy .eh{display:inline}
 .lupi.sad .bs{display:inline}
-.lupi .pu{transition:transform .3s}
-.lupi.sad .pu{transform:translate(0,5px)}
-.lupi.think .pu{transform:translate(5px,-5px)}
+/* Reposo: respira, parpadea, mueve los penachos y de vez en cuando inspecciona con la lupa */
 .lupi .bodyg{transform-origin:80px 160px;animation:bob 3.2s ease-in-out infinite}
-.lupi.happy .bodyg{animation:hop .5s cubic-bezier(.3,1.6,.5,1)}
-.lupi.sad .bodyg{animation:droop .5s ease}
 @keyframes bob{50%{transform:translateY(-3px) rotate(-1deg)}}
-@keyframes hop{40%{transform:translateY(-12px) scale(1.03)}}
-@keyframes droop{40%{transform:rotate(-5deg)}}
 .lupi .lid{transform-origin:center;transform-box:fill-box;animation:blink 5s infinite}
 @keyframes blink{0%,94%,100%{transform:scaleY(0)}96%{transform:scaleY(1)}}
+.lupi .tl{transform-origin:40px 54px;animation:tuftL 5.5s ease-in-out infinite}
+.lupi .tr{transform-origin:120px 54px;animation:tuftR 5.5s ease-in-out infinite}
+@keyframes tuftL{0%,78%,100%{transform:rotate(0)}82%{transform:rotate(-14deg)}86%{transform:rotate(6deg)}90%{transform:rotate(-4deg)}}
+@keyframes tuftR{0%,78%,100%{transform:rotate(0)}82%{transform:rotate(14deg)}86%{transform:rotate(-6deg)}90%{transform:rotate(4deg)}}
+.lupi .arm{transform-origin:132px 102px;animation:scan 9s ease-in-out 2s infinite}
+@keyframes scan{0%,62%,100%{transform:none}68%,74%{transform:translate(-30px,-24px) scale(1.18)}80%{transform:translate(-50px,-24px) scale(1.18)}86%{transform:translate(-30px,-24px) scale(1.18)}}
+.lupi .glint{animation:glint 3s ease-in-out infinite}
+@keyframes glint{0%,70%,100%{opacity:1}80%{opacity:.2}}
+.lupi .wl{transform-origin:30px 100px}
+.lupi .hat{transform-origin:80px 46px}
+.lupi .spark{display:none}
+.lupi .pu{transition:transform .25s ease-out}
+
+/* Contento: salta, aletea, levanta el sombrero y brillan estrellitas */
+.lupi.happy .bodyg{animation:hop .55s cubic-bezier(.3,1.6,.5,1), bob 3.2s ease-in-out .55s infinite}
+@keyframes hop{40%{transform:translateY(-14px) scale(1.04)}}
+.lupi.happy .wl{animation:flapL .18s ease-in-out 6 alternate}
+@keyframes flapL{to{transform:rotate(28deg)}}
+.lupi.happy .arm{animation:flapR .18s ease-in-out 6 alternate}
+@keyframes flapR{to{transform:rotate(-16deg) translateY(-4px)}}
+.lupi.happy .hat{animation:hatpop .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes hatpop{45%{transform:translateY(-14px) rotate(-8deg)}}
+.lupi.happy .spark{display:inline}
+.lupi .spark path{transform-box:fill-box;transform-origin:center;animation:twinkle 1.2s ease-in-out infinite}
+.lupi .spark path:nth-child(2){animation-delay:.3s}.lupi .spark path:nth-child(3){animation-delay:.6s}
+@keyframes twinkle{0%,100%{transform:scale(.3) rotate(0);opacity:.3}50%{transform:scale(1.15) rotate(45deg);opacity:1}}
+
+/* Triste: se encoge, baja las alas y le cae una lágrima */
+.lupi.sad .bodyg{animation:droop .6s ease, bob 3.2s ease-in-out .6s infinite}
+@keyframes droop{30%{transform:translateY(4px) scaleY(.95) rotate(-4deg)}60%{transform:rotate(3deg)}}
+.lupi.sad .wl{transform:rotate(-8deg)}
+.lupi.sad .arm{animation:none;transform:rotate(10deg) translateY(4px)}
+.lupi.sad .tl{animation:none;transform:rotate(18deg)}.lupi.sad .tr{animation:none;transform:rotate(-18deg)}
+.lupi.sad .pu{transform:translate(0,5px)}
+.lupi .tear{display:none}
+.lupi.sad .tear{display:inline;animation:tear 1.4s ease-in .2s 2 backwards}
+@keyframes tear{from{transform:translateY(-4px);opacity:0}20%{opacity:1}to{transform:translateY(22px);opacity:0}}
+
+/* Pensativo: inclina la cabeza y se acerca la lupa al ojo */
+.lupi.think .bodyg{animation:tilt .5s ease forwards}
+@keyframes tilt{to{transform:rotate(-7deg)}}
+.lupi.think .arm{animation:none;transform:translate(-30px,-24px) scale(1.18);transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
+.lupi.think .pu{transform:translate(5px,-4px)}
+
+/* Al tocarlo: da un brinco con giro y ulula */
+.lupi.tap .bodyg{animation:spinhop .75s cubic-bezier(.3,1.3,.5,1)}
+@keyframes spinhop{30%{transform:translateY(-22px) rotate(-12deg)}60%{transform:translateY(-10px) rotate(12deg)}}
+.lupi.tap .wl{animation:flapL .15s ease-in-out 4 alternate}
+.lupi.tap .hat{animation:hatpop .6s cubic-bezier(.3,1.6,.5,1)}
+
+/* Entrada en el mapa: cae desde arriba */
+.lupi.jumpin .bodyg{animation:jumpin .8s cubic-bezier(.3,1.4,.5,1), bob 3.2s ease-in-out .8s infinite}
+@keyframes jumpin{from{transform:translateY(-120px)}55%{transform:translateY(6px) scaleY(.9)}75%{transform:translateY(-6px)}}
+.lupi-hit{cursor:pointer;-webkit-tap-highlight-color:transparent}
 
 /* ---------- Buttons ---------- */
 .btn{
@@ -391,7 +439,7 @@ h1,h2,h3,p{margin:0}
 
   <button class="icon-btn music-btn corner-music" aria-label="Música" aria-pressed="false"><svg><use href="#i-music-off"/></svg></button>
   <div class="hero">
-    <div id="home-lupi"></div>
+    <div id="home-lupi" class="lupi-hit" role="button" aria-label="Lupi, el búho detective"></div>
     <div class="hero-text">
       <span class="badge">Lengua · 2.º de Primaria</span>
       <h1 class="wordmark"><span>Palabra</span><span class="w2">Secreta</span></h1>
@@ -476,7 +524,7 @@ h1,h2,h3,p{margin:0}
   </header>
   <div class="stage">
     <aside class="clue">
-      <div class="coach"><div id="coach-lupi"></div><p class="bubble" id="bubble" aria-live="polite"></p></div>
+      <div class="coach"><div id="coach-lupi" class="lupi-hit" role="button" aria-label="Lupi, el búho detective"></div><p class="bubble" id="bubble" aria-live="polite"></p></div>
       <div class="clue-head">
         <span class="eyebrow" id="clue-num"></span>
         <span class="progress" id="progress"></span>
@@ -592,7 +640,7 @@ const ART={
 function lupi(mood=''){
   return `<svg class="lupi ${mood}" viewBox="0 0 160 172" aria-hidden="true"><g class="st"><g class="bodyg">
   <path d="M58 156q-8 10 4 10h14q4-8-4-11zM88 155q-8 3-4 11h14q12 0 4-10z" fill="#FF9A3C"/>
-  <path d="M32 58 20 28 52 44Z" fill="#B9794A"/><path d="M128 58 140 28 108 44Z" fill="#B9794A"/>
+  <path class="tl" d="M32 58 20 28 52 44Z" fill="#B9794A"/><path class="tr" d="M128 58 140 28 108 44Z" fill="#B9794A"/>
   <path d="M80 26C122 26 140 60 140 100C140 140 114 160 80 160C46 160 20 140 20 100C20 60 38 26 80 26Z" fill="#B9794A"/>
   <path class="n" d="M80 96C104 96 116 114 114 134C112 150 98 156 80 156C62 156 48 150 46 134C44 114 56 96 80 96Z" fill="#F3D9B1"/>
   <path class="ln" d="M66 116l6 5 6-5M84 116l6 5 6-5M74 134l6 5 6-5" style="stroke:#C99A62;stroke-width:3"/>
@@ -602,17 +650,43 @@ function lupi(mood=''){
     <ellipse class="lid n" cx="60" cy="78" rx="19" ry="19" fill="#E7B27F"/><ellipse class="lid n" cx="100" cy="78" rx="19" ry="19" fill="#E7B27F"/></g>
   <g class="eh"><path class="ln" d="M46 82q14-16 28 0M86 82q14-16 28 0" style="stroke-width:6"/><circle class="n" cx="44" cy="96" r="6" fill="#FF8FB1" opacity=".7"/><circle class="n" cx="116" cy="96" r="6" fill="#FF8FB1" opacity=".7"/></g>
   <g class="bs"><path class="ln" d="M42 58 64 50M118 58 96 50" style="stroke-width:5"/></g>
+  <path class="tear" d="M52 96q-5 8 0 11q5-3 0-11z" fill="#4FA3F7" style="stroke-width:2.5"/>
   <path d="M72 94H88L80 108Z" fill="#FFC52E"/>
-  <path d="M42 44Q80 0 118 44Z" fill="#C79A5B"/>
+  <g class="hat"><path d="M42 44Q80 0 118 44Z" fill="#C79A5B"/>
   <path class="n" d="M48 38Q80 18 112 38L114 43Q80 24 46 43Z" fill="#7A5328"/>
-  <path d="M24 46Q80 30 136 46Q80 60 24 46Z" fill="#A87A3E"/>
-  <path d="M26 96Q6 116 18 140Q30 132 32 112Z" fill="#9C6238"/>
-  <path class="ln" d="M134 114l14 30" style="stroke-width:9"/>
+  <path d="M24 46Q80 30 136 46Q80 60 24 46Z" fill="#A87A3E"/></g>
+  <g class="wl"><path d="M26 96Q6 116 18 140Q30 132 32 112Z" fill="#9C6238"/></g>
+  <g class="arm"><path class="ln" d="M134 114l14 30" style="stroke-width:9"/>
   <circle cx="132" cy="102" r="17" fill="#DCE4FF" style="stroke-width:5"/>
-  <path class="ln" d="M124 96q3-6 9-7" style="stroke:#fff;stroke-width:3.5"/>
-  <path d="M138 96Q156 116 144 140Q132 132 130 112Z" fill="#9C6238"/>
+  <path class="ln glint" d="M124 96q3-6 9-7" style="stroke:#fff;stroke-width:3.5"/>
+  <path d="M138 96Q156 116 144 140Q132 132 130 112Z" fill="#9C6238"/></g>
+  <g class="spark n" fill="#FFC52E"><path d="M18 20 21 28 29 31 21 34 18 42 15 34 7 31 15 28Z"/><path d="M146 14 148 20 154 22 148 24 146 30 144 24 138 22 144 20Z"/><path d="M152 62 154 67 159 69 154 71 152 76 150 71 145 69 150 67Z"/></g>
   </g></g></svg>`;
 }
+/* Los ojos de Lupi siguen el dedo o el ratón */
+let eyeRAF=0, eyeX=0, eyeY=0;
+function trackEyes(e){ eyeX=e.clientX; eyeY=e.clientY; if(!eyeRAF) eyeRAF=requestAnimationFrame(lookAt); }
+document.addEventListener('pointermove',trackEyes,{passive:true});
+document.addEventListener('pointerdown',trackEyes,{passive:true});
+function lookAt(){
+  eyeRAF=0;
+  document.querySelectorAll('.lupi:not(.sad):not(.think):not(.happy)').forEach(svg=>{
+    const r=svg.getBoundingClientRect(); if(!r.width) return;
+    const cx=r.left+r.width*.5, cy=r.top+r.height*.46, dx=eyeX-cx, dy=eyeY-cy, d=Math.hypot(dx,dy)||1, k=Math.min(1,d/260);
+    const pu=svg.querySelector('.pu'); if(pu) pu.style.transform=`translate(${(dx/d*6*k).toFixed(1)}px,${(dy/d*5*k).toFixed(1)}px)`;
+  });
+}
+/* Al tocar a Lupi: brinco, ululato y, durante el juego, una frase */
+const HOOT=['¡Hu-hu! Soy Lupi, el detective de palabras.','¡Hu-hu! ¡Me hacéis cosquillas!','¡Hu-hu! Mirad bien la pista.','¡Hu-hu! ¡Qué buen equipo de detectives!','¡Hu-hu! ¿Sabíais que los búhos pueden girar mucho la cabeza?'];
+function hoot(){ tone(392,0,.22,'sine',.12); tone(330,.26,.32,'sine',.12); }
+document.addEventListener('click',e=>{
+  const hit=e.target.closest('.lupi-hit'); if(!hit) return;
+  const svg=hit.querySelector('.lupi'); if(!svg) return;
+  svg.classList.remove('tap'); void svg.getBoundingClientRect(); svg.classList.add('tap');
+  setTimeout(()=>svg.classList.remove('tap'),800); hoot();
+  if(hit.id==='coach-lupi'){ const b=$('#bubble'); b.textContent=pick(HOOT); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); }
+});
+
 const SAY = {
   start:['¡Leed bien la pista!','Pista nueva. ¿Qué palabras sobran?','¡A investigar, detectives!','Mirad todas las palabras con calma.'],
   ok:['¡Bien visto!','¡Eso es!','¡Muy bien, detectives!','¡Fuera esa!','¡Genial!','¡Así se hace!'],
@@ -1130,7 +1204,7 @@ function showMap(){
   let d=`M${pts[0].x} ${pts[0].y}`; for(let i=1;i<n;i++){ const a=pts[i-1], b=pts[i], mx=(a.x+b.x)/2; d+=` C${mx} ${a.y} ${mx} ${b.y} ${b.x} ${b.y}`; }
   $('#route').innerHTML = `<svg class="path" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true"><path d="${d}" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="10" stroke-linecap="round" stroke-dasharray="2 22" vector-effect="non-scaling-stroke"/></svg>` +
     pts.map((p,i)=>{ const st = i<G.roundNo?'done':i===G.roundNo?'now':'';
-      const inner = st==='done' ? `<svg viewBox="0 0 24 24" style="width:46%" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="ns">${[1,2,3].map(k=>starSVG(k<=G.caseStars[i])).join('')}</span>` : (st==='now'? `${i+1}${lupi('happy')}` : i+1);
+      const inner = st==='done' ? `<svg viewBox="0 0 24 24" style="width:46%" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="ns">${[1,2,3].map(k=>starSVG(k<=G.caseStars[i])).join('')}</span>` : (st==='now'? `${i+1}${lupi('jumpin')}` : i+1);
       return `<div class="node ${st}" style="left:${p.x/10}%;top:${p.y/3}%">${inner}</div>`; }).join('');
   $('#map-scores').innerHTML = scoresHTML('ms');
   $('#b-open').innerHTML = `Abrir el caso ${cur} <svg aria-hidden="true"><use href="#i-arrow"/></svg>`;
@@ -1258,7 +1332,7 @@ function revealModal(early, stars){
     <h2>La palabra secreta era…</h2>
     <div class="reveal-stage"><div class="burst"></div>
       <div class="big-card${G.pics&&w.art?'':' nopic'}">${G.pics?picHTML(w):''}<span class="word">${w.word}</span></div>
-      <div class="reveal-lupi">${lupi('happy')}</div></div>
+      <div class="reveal-lupi lupi-hit">${lupi('happy')}</div></div>
     <div class="case-stars">${[1,2,3].map(i=>starSVG(i<=stars,.5+i*.15)).join('')}</div>
     <div class="sylls">${w.syl.map(s=>`<span>${s}</span>`).join('')}</div>
     <div class="facts">${facts.map(f=>`<span>${f}</span>`).join('')}</div>

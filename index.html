@@ -1065,9 +1065,12 @@ const MUSIC = (()=>{
     toggle(){ on=!on; try{ localStorage.setItem('ps-music', on?'1':'0'); }catch(e){} if(on) start(); else stop(); paint(); },
     theme(t){ if(t===cur) return; cur=t; if(on) start(); },
     duck(sec){ if(!on||!bus) return; const c=ctx(), t=c.currentTime; bus.gain.cancelScheduledValues(t); bus.gain.setValueAtTime(bus.gain.value,t); bus.gain.linearRampToValueAtTime(.12,t+.15); bus.gain.setValueAtTime(.12,t+sec); bus.gain.linearRampToValueAtTime(.55,t+sec+.8); },
-    pause(){ if(on) stop(); }, resume(){ if(on && !timer) start(); }, paint
+    pause(){ if(on) stop(); }, resume(){ if(on && !timer) start(); }, paint,
+    restore(){ let saved=null; try{ saved=localStorage.getItem('ps-music'); }catch(e){}
+      if(saved==='1'){ on=true; paint(); document.addEventListener('pointerdown',()=>{ if(on && !timer) start(); },{once:true,capture:true}); } }
   };
 })();
+MUSIC.restore();
 document.addEventListener('click',e=>{ if(e.target.closest('.music-btn')) MUSIC.toggle(); });
 document.addEventListener('visibilitychange',()=>{ document.hidden ? MUSIC.pause() : MUSIC.resume(); });
 
